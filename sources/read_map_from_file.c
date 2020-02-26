@@ -1,5 +1,21 @@
-#include "fdf.h"
+#include "../includes/fdf.h"
 
+/*
+** free array that was returned by ft_strsplit()
+
+static void			free_strsplit_arr(char **arr)
+{
+    size_t i;
+
+    i = 0;
+    while (arr[i])
+        free(arr[i++]);
+    free(arr);
+}*/
+
+/*
+** write one line of map to matrix
+*/
 void    fill_line(int *map_line, char *fd_line)
 {
     char    **int_line;
@@ -14,6 +30,9 @@ void    fill_line(int *map_line, char *fd_line)
     }
 }
 
+/*
+** read map file line by line
+*/
 void    fill_matrix(fdf_map *chr_map, char *file)
 {
     int     fd;
@@ -30,6 +49,9 @@ void    fill_matrix(fdf_map *chr_map, char *file)
     }
 }
 
+/*
+** writing map to int** array
+*/
 void    int_arr_transformation(char *file, fdf_map *initial)
 {
     int     tik;
@@ -44,6 +66,9 @@ void    int_arr_transformation(char *file, fdf_map *initial)
    fill_matrix(initial, file);
 }
 
+/*
+** read file and count width of a map
+*/
 int     get_width(char *file)
 {
     int     fd;
@@ -58,6 +83,9 @@ int     get_width(char *file)
     return (width);
 }
 
+/*
+** read file and count height of a map
+*/
 int     get_height(char *file)
 {
     int     fd;
@@ -75,6 +103,9 @@ int     get_height(char *file)
     return (height);
 }
 
+/*
+** reading from file "manager"
+*/
 void    read_from_file(fdf_map *actual_map, char *file)
 {
     actual_map->height = get_height(file);
