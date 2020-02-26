@@ -1,77 +1,100 @@
-#ifndef SCHOOL21_LEVEL3_FDF_FDF_H
-#define SCHOOL21_LEVEL3_FDF_FDF_H
+#ifndef FDF_H
+# define FDF_H
+
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <math.h>
-# include "../minilibx_macos/mlx.h"
+# include <mlx.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
-#define MAX(a,b) (a > b ? a : b)
-#define MOD(a) ((a < 0) ? -a : a)
-#define ONE(a, b) ((a < b) ? 1 : -1)
-#define WIN_WID 1000
-#define WIN_HGT 1000
-#define WHITE 0xFFFFFF
-#define SPRING_GREEN 0xFF7F
-#define TOMATO 0xFF6347
-#define SKYBLUE 0x87CEFF
+# include <fcntl.h>
 
-typedef struct  s_point
+# define WIDTH 1200
+# define HEIGHT 1000
+
+typedef struct		s_image
 {
-    int         x;
-    int         y;
-    int         z;
-    int         color;
-}               point;
+	void			*img;
+	int				bit;
+	int				size;
+	int				end;
+	int				image_z;
+	int				x_max;
+	int				y_max;
+	int				z_max;
+	int				rot_y;
+	int				rot_x;
+	int				step;
+	float			angle;
+	char			*str;
+}					t_image;
 
-typedef struct  s_image
+typedef struct		s_point
 {
-    void        *img_ptr;
-    char        *img_data;
+	char			*data;
+	struct s_point	*next;
+	int				x;
+	int				y;
+	int				p_h;
+	int				p_w;
+}					t_point;
 
-    int         bits;
-    int         lsize;
-    int         endian;
-}               fdf_img;
-
-typedef struct  s_input
+typedef struct		s_map
 {
-    int         height;
-    int         width;
-    int         **map;
+	int				fd;
+	int				map_h;
+	int				map_w;
+	t_point			*rd;
+	t_point			*ptr;
+	char			**line;
+	int				**o3d;
+	t_point			**o2d;
+}					t_map;
 
-    void        *mlx_ptr;
-    void        *win_ptr;
-    fdf_img     *image;
-}               fdf_map;
+typedef struct		s_window
+{
+	void			*mlx;
+	void			*win;
+	int				w_width;
+	int				w_height;
+}					t_window;
 
-/*
-** read_map_from_file.c
-*/
-void    fill_line(int *map_line, char *fd_line);
-void    fill_matrix(fdf_map *chr_map, char *file);
-int     get_height(char *file);
-int     get_width(char *file);
-void    int_arr_transformation(char *file, fdf_map *initial);
-void    read_from_file(fdf_map *actual_map, char *file);
-
-/*
-** draw.c
-*/
-void    draw_image(fdf_map *fmap);
-void    bresenham_draw_line(point start, point fi, fdf_map *map_info);
-
-/*
-** point_utils.c
-*/
-point    *to_point(int x, int y, fdf_map *fmap);
+typedef struct		s_env
+{
+	t_image			*i;
+	t_point			*p;
+	t_window		*w;
+	t_map			*m;
+	int				x1;
+	int				y1;
+}					t_env;
 
 /*
-** image_utils.c
+** init.c
 */
-void    put_pix_in_img(fdf_img *img, float x, float y, int color);
-void		img_clean(fdf_img *img);
-void    create_image(fdf_map *info);
-#endif //SCHOOL21_LEVEL3_FDF_FDF_H
+t_image				*init_img(t_image *i, t_window *w);
+t_image				*ft_update_img(t_image *i, t_window *w);
+t_window			*start_window(t_window *w);
+t_env				*init_env(t_env *all);
+void				start_env(t_env *all);
+
+/*
+** parse.c
+*/
+t_map				*ft_parse_line(t_map *m, int h);
+t_map				*ft_parse_file(t_map *m, char **av);
+
+/*
+** key.c
+*/
+void				ft_key_size(int key, t_env *all);
+int					ft_key_catch(int key, t_env *all);
+
+/*
+** print.c
+*/
+void				ft_print_info(t_window *w, t_image *i);
+void				ft_line(t_env *all, int x0, int y0);
+void				ft_redraw(t_env *all, t_map *m, t_image *i, t_window *w);
+void				ft_error(char *name, char *msg);
+
+#endif

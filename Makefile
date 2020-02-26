@@ -21,10 +21,10 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = ./sources/
 SOURCES_LIST = main.c
-SOURCES_LIST += read_map_from_file.c
-SOURCES_LIST += point_utils.c
-SOURCES_LIST += image_utils.c
-SOURCES_LIST += draw.c
+SOURCES_LIST += init.c
+SOURCES_LIST += key.c
+SOURCES_LIST += parse.c
+SOURCES_LIST += print.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

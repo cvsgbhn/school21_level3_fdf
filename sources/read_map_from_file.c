@@ -1,19 +1,6 @@
 #include "../includes/fdf.h"
 
 /*
-** free array that was returned by ft_strsplit()
-
-static void			free_strsplit_arr(char **arr)
-{
-    size_t i;
-
-    i = 0;
-    while (arr[i])
-        free(arr[i++]);
-    free(arr);
-}*/
-
-/*
 ** write one line of map to matrix
 */
 void    fill_line(int *map_line, char *fd_line)
@@ -33,7 +20,7 @@ void    fill_line(int *map_line, char *fd_line)
 /*
 ** read map file line by line
 */
-void    fill_matrix(fdf_map *chr_map, char *file)
+void    fill_matrix(t_env *chr_map, char *file)
 {
     int     fd;
     int     tik;
@@ -43,7 +30,7 @@ void    fill_matrix(fdf_map *chr_map, char *file)
     tik = 0;
     while(get_next_line(fd, &line))
     {
-        fill_line(chr_map->map[tik], line);
+        fill_line(chr_map->fmap->map[tik], line);
         tik++;
         free(line);
     }
@@ -52,15 +39,15 @@ void    fill_matrix(fdf_map *chr_map, char *file)
 /*
 ** writing map to int** array
 */
-void    int_arr_transformation(char *file, fdf_map *initial)
+void    int_arr_transformation(char *file, t_env *initial)
 {
     int     tik;
 
-    initial->map = (int **)malloc(sizeof(int*) * initial->height);
+    initial->fmap->map = (int **)malloc(sizeof(int*) * initial->fmap->height);
     tik = 0;
-    while(tik < initial->height)
+    while(tik < initial->fmap->height)
     {
-        initial->map[tik] = (int *)malloc(sizeof(int) * initial->width);
+        initial->fmap->map[tik] = (int *)malloc(sizeof(int) * initial->fmap->width);
         tik++;
     }
    fill_matrix(initial, file);
@@ -106,9 +93,9 @@ int     get_height(char *file)
 /*
 ** reading from file "manager"
 */
-void    read_from_file(fdf_map *actual_map, char *file)
+void    read_from_file(t_env *actual_map, char *file)
 {
-    actual_map->height = get_height(file);
-    actual_map->width = get_width(file);
+    actual_map->fmap->height = get_height(file);
+    actual_map->fmap->width = get_width(file);
     int_arr_transformation(file, actual_map);
 }
