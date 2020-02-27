@@ -13,8 +13,10 @@ void    fill_line(int *map_line, char *fd_line)
     while (int_line[tik])
     {
         map_line[tik] = ft_atoi(int_line[tik]);
+        printf("%2d ", map_line[tik]);
         tik++;
     }
+    printf("%c", '\n');
 }
 
 /*
@@ -44,11 +46,11 @@ void    int_arr_transformation(char *file, t_env *initial)
     int     tik;
 
     initial->map = (t_map *)malloc(sizeof(t_map));
-    initial->map->map_arr = (int **)malloc(sizeof(int*) * initial->row_num);
+    initial->map->map_arr = (int **)malloc(sizeof(int*) * initial->height);
     tik = 0;
-    while(tik < initial->row_num)
+    while(tik < initial->height)
     {
-        initial->map->map_arr[tik] = (int *)malloc(sizeof(int) * initial->col_num);
+        initial->map->map_arr[tik] = (int *)malloc(sizeof(int) * initial->width);
         tik++;
     }
    fill_matrix(initial, file);
@@ -96,9 +98,10 @@ int     get_height(char *file)
 */
 int    read_from_file(t_env *actual_map, char *file)
 {
-    actual_map->row_num = get_height(file);
-    actual_map->col_num = get_width(file);
+    actual_map->height = get_height(file);
+    actual_map->width = get_width(file);
     int_arr_transformation(file, actual_map);
+    //return(-1);
     if(!(actual_map->map->map_arr))
         return (-1);
     return (0);

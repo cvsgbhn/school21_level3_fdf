@@ -37,8 +37,8 @@ typedef struct	s_map
 
 typedef struct	s_env
 {
-	int			row_num;
-	int			col_num;
+	int			height;
+	int			width;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_map		*map;

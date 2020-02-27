@@ -37,8 +37,8 @@ t_env		*init_env(t_env *all)
     printf("%s\n", "init env");
 	if ((all = (t_env *)ft_memalloc(sizeof(t_env))))
 	{
-		all->col_num = 0;
-		all->row_num = 0;
+		all->width = 0;
+		all->height = 0;
 		all->image = NULL;
 		all->map = NULL;
 		all->mlx_ptr = NULL;

@@ -83,22 +83,22 @@ void	draw(t_env *env)
 	int		x;
 	int		y;
 
-	x = 0;
-	while(x < env->row_num)
+	y = 0;
+	while(y < env->width - 1)
 	{
-		y = 0;
+		x = 0;
 		printf("%s %d\n", "Y", y);
-		while(y < env->col_num)
+		while(x < env->height - 1)
 		{
 		    printf("%s\n", "drawing actions");
-			if (x != env->row_num - 1)
+			if (x != env->width - 1)
 				bresenham_draw_line(*new_point(x ,y, env), *new_point(x + 1, y, env), env);
-			if (y != env->col_num - 1)
+			if (y != env->height - 1)
 				bresenham_draw_line(*new_point(x, y, env), *new_point(x, y + 1, env), env);
-			y++;
+			x++;
             printf("%s %d\n", "X", x);
 		}
-		x++;
+		y++;
 	}
 	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->image->img_ptr, 0, 0);
 }
