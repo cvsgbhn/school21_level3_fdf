@@ -57,6 +57,12 @@ void				start_env(t_env *all);
 /*
 ** read.c
 */
+void    fill_line(int *map_line, char *fd_line);
+void    fill_matrix(t_env *chr_map, char *file);
+void    int_arr_transformation(char *file, t_env *initial);
+int     get_width(char *file);
+int     get_height(char *file);
+void    read_from_file(t_env *actual_map, char *file);
 
 
 /*
