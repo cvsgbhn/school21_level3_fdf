@@ -10,63 +10,40 @@
 
 # define WIDTH 1200
 # define HEIGHT 1000
-
-typedef struct		s_image
-{
-	void			*img;
-	int				bit;
-	int				size;
-	int				end;
-	int				image_z;
-	int				x_max;
-	int				y_max;
-	int				z_max;
-	int				rot_y;
-	int				rot_x;
-	int				step;
-	float			angle;
-	char			*str;
-}					t_image;
+# define FDF_ABS(a) ((a < 0) ? -a : a)
 
 typedef struct		s_point
 {
-	char			*data;
-	struct s_point	*next;
 	int				x;
 	int				y;
-	int				p_h;
-	int				p_w;
-}					t_point;
+	int				z;
+	int				color;
+}				t_p;
 
-typedef struct		s_map
+typedef struct	s_image
 {
-	int				fd;
-	int				map_h;
-	int				map_w;
-	t_point			*rd;
-	t_point			*ptr;
-	char			**line;
-	int				**o3d;
-	t_point			**o2d;
-}					t_map;
+	void		*img_ptr;
+	void		*img_data;
+	int			bits;
+	int			linesize;
+	int			endian;
+}				t_img;
 
-typedef struct		s_window
+typedef struct	s_map
 {
-	void			*mlx;
-	void			*win;
-	int				w_width;
-	int				w_height;
-}					t_window;
+	int			**map_arr;
+}				t_map;
 
-typedef struct		s_env
+
+typedef struct	s_env
 {
-	t_image			*i;
-	t_point			*p;
-	t_window		*w;
-	t_map			*m;
-	int				x1;
-	int				y1;
-}					t_env;
+	int			row_num;
+	int			col_num;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_map		*map;
+	t_img		*image;
+}				t_env;
 
 /*
 ** init.c
@@ -78,10 +55,9 @@ t_env				*init_env(t_env *all);
 void				start_env(t_env *all);
 
 /*
-** parse.c
+** read.c
 */
-t_map				*ft_parse_line(t_map *m, int h);
-t_map				*ft_parse_file(t_map *m, char **av);
+
 
 /*
 ** key.c

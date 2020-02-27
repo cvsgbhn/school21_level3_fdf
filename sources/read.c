@@ -43,7 +43,8 @@ void    int_arr_transformation(char *file, t_env *initial)
 {
     int     tik;
 
-    initial->fmap->map = (int **)malloc(sizeof(int*) * initial->fmap->height);
+    initial->map = (t_map *)malloc(sizeof(t_map));
+    initial->map->map_arr = (int **)malloc(sizeof(int*) * initial->row_num);
     tik = 0;
     while(tik < initial->fmap->height)
     {
@@ -95,7 +96,7 @@ int     get_height(char *file)
 */
 void    read_from_file(t_env *actual_map, char *file)
 {
-    actual_map->fmap->height = get_height(file);
-    actual_map->fmap->width = get_width(file);
+    actual_map->row_num = get_height(file);
+    actual_map->col_nums = get_width(file);
     int_arr_transformation(file, actual_map);
 }
