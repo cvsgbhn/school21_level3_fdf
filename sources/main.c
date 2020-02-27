@@ -10,7 +10,7 @@ int			main(int ac, char **av)
 		if ((all = init_env(all)) == NULL)
 			ft_error(av[0], "ENV INIT error");
 		printf("%s\n", "inited");
-		if ((all->m = ft_parse_file(all->map, av)) == NULL)
+		if (read_from_file(all, av[1]) == -1)
 			ft_error(av[1], "<-INVALID MAP");
 		start_env(all);
 		return (0);

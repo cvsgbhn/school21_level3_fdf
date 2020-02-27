@@ -22,7 +22,6 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 SOURCES_DIRECTORY = ./sources/
 SOURCES_LIST = main.c
 SOURCES_LIST += init.c
-SOURCES_LIST += key.c
 SOURCES_LIST += read.c
 SOURCES_LIST += print.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
